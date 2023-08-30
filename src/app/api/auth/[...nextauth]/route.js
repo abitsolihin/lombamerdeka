@@ -1,5 +1,5 @@
-import Users from '../../../../schema/Users';
-import connect from '../../../../utils/db';
+import Users from '@/models/user/user';
+import connect from '@/utils/db';
 import NextAuth from 'next-auth';
 import bcrypt from 'bcryptjs';
 import CredentialsProvider from 'next-auth/providers/credentials';

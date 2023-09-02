@@ -3,6 +3,7 @@ import { db } from "@/app/firebase";
 import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
 import validateApiKey from "@/middleware/apiKey";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import sharp from "sharp";
 
 export const GET = async (request) => {
     const apiKey = request.headers.get('x-api-key');
@@ -74,31 +75,42 @@ export const POST = async (request) => {
     const deskripsi = formData.get('deskripsi');
     const tatacara = formData.get('tatacara');
     const videourl = formData.get('videourl');
-    const kategori = formData.getAll('kategori');
+    const kategoriArray = formData.getAll('kategori[]');
     const imageFile = formData.get('image');
 
     try {
+        // Check if the uploaded image size is less than or equal to 1MB
+        const maxFileSize = 1 * 1024 * 1024; // 1MB in bytes
+        if (imageFile.size > maxFileSize) {
+            throw new Error("Ukuran gambar melebihi 1MB. Silakan unggah gambar yang lebih kecil.");
+        }
+
         // Access the "lombas" collection in Firestore
         const lombasCollection = collection(db, "lombas");
 
         const imageBuffer = await imageFile.arrayBuffer();
 
-        // Upload image to Firebase Storage
+        // Compress the image using sharp
+        const compressedImageBuffer = await sharp(imageBuffer)
+            .webp() // Adjust the quality as needed
+            .toBuffer()
+
+        // Upload compressed image to Firebase Storage
         const storage = getStorage();
-        const imageRef = ref(storage, `images/${title}-${Date.now()}`);
-        await uploadBytes(imageRef, imageBuffer);
+        const imageRef = ref(storage, `images/${title}-${Date.now()}.webp`);
+        await uploadBytes(imageRef, compressedImageBuffer);
 
         // Get the download URL of the uploaded image
         const imgurl = await getDownloadURL(imageRef);
 
         // Create a new document in the "lombas" collection
-        const docRef = await addDoc(lombasCollection, {
+        await addDoc(lombasCollection, {
             title,
             deskripsi,
             imgurl,
             tatacara,
             videourl,
-            kategori,
+            kategori: kategoriArray,
         });
 
         return new NextResponse(JSON.stringify("Post berhasil disimpan"), {

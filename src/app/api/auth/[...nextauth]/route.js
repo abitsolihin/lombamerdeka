@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 export const authOption = {
+    secret: process.env.NEXTAUTH_SECRET,
     providers: [
         CredentialsProvider({
             id: 'credentials',
@@ -13,7 +14,7 @@ export const authOption = {
                 await connect();
 
                 try {
-                    const user = await Users.findOne({ username: credentials.username });
+                    const user = await Users.findOne({ email: credentials.email });
 
                     if (user) {
                         const isPasswordCorrect = await bcrypt.compare(

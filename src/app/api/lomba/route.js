@@ -46,7 +46,7 @@ export const GET = async (request) => {
 
         const querySnapshot = await getDocs(query);
 
-        const post = querySnapshot.docs.map((doc) => doc.data());
+        const post = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
         const totalPost = querySnapshot.size;
         const totalPages = Math.ceil(totalPost / limit);
 
@@ -56,7 +56,7 @@ export const GET = async (request) => {
             totalPages,
             currentPage: page,
             limit,
-            lomba: post // Use the filtered posts
+            post // Use the filtered posts
         };
         return new NextResponse(JSON.stringify(response), {
             status: 200

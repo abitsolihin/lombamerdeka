@@ -1,5 +1,4 @@
 import { doc, getDoc } from "firebase/firestore";
-import validateApiKey from "@/middleware/apiKey";
 import { NextResponse } from "next/server";
 import { db } from "@/app/firebase";
 

@@ -1,76 +1,89 @@
 import { NextResponse } from "next/server";
 import { db } from "@/app/firebase";
-import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
+import { collection, addDoc, query, serverTimestamp, where, getDocs } from "firebase/firestore";
 import validateApiKey from "@/middleware/apiKey";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import sharp from "sharp";
 
 export const GET = async (request) => {
+    //Get The Headers x-api-key
     const apiKey = request.headers.get('x-api-key');
+
+    //if missing API Key
     if (!apiKey) {
         return new NextResponse("Missing Api Key", {
             status: 500
         });
     }
+
+    //if Invalid API Key
     if (!validateApiKey(apiKey)) {
         return new NextResponse("Invalid Api Key", {
             status: 500
         });
     }
-    try {
-        // No need to connect() since you're using Firestore
 
+    try {
+        //try to get the params
         const page_str = request.nextUrl.searchParams.get("page");
         const limit_str = request.nextUrl.searchParams.get("limit");
-        const month_str = request.nextUrl.searchParams.get("month");
-        const year_str = request.nextUrl.searchParams.get("year");
-        const category = request.nextUrl.searchParams.get("category");
+        const kategori = request.nextUrl.searchParams.get("kategori");
+        const sort = request.nextUrl.searchParams.get("sort"); 
+        const field = request.nextUrl.searchParams.get("field");
 
+        //pagination filter
         const page = page_str ? parseInt(page_str, 10) : 1;
         const limit = limit_str ? parseInt(limit_str, 10) : 10;
         const skip = (page - 1) * limit;
 
-        let query = collection(db, "lombas");
+        //connect to db and field or collection
+        let filterQuery = collection(db, "lombas");
 
-        if (month_str && year_str) {
-            const startDate = new Date(Date.UTC(parseInt(year_str), parseInt(month_str) - 1, 1));
-            const endDate = new Date(Date.UTC(parseInt(year_str), parseInt(month_str), 1));
-
-            query = where("timestamp", ">=", startDate);
-            query = where(query, "<", endDate);
+        //filter based on timestamp or asc and des
+        if (field && sort) {
+            filterQuery = query(filterQuery, orderBy(field, sort)); // Sort by the specified field and order
         }
 
-        if (category) {
-            query = where(query, "kategori", "==", category); // Add filter by category
+        //filter based value on category
+        if (kategori) {
+            filterQuery = query(filterQuery, where('kategori', 'array-contains', kategori));
         }
 
-        const querySnapshot = await getDocs(query);
+        //try to get all document based on filterQuery(collection)
+        const querySnapshot = await getDocs(filterQuery);
 
+        //try to get the id document and math the totalPost and Pages
         const post = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
         const totalPost = querySnapshot.size;
         const totalPages = Math.ceil(totalPost / limit);
 
+        //Entered all the results what i want to show
         const response = {
             status: "success",
             count: post.length,
             totalPages,
             currentPage: page,
             limit,
-            post // Use the filtered posts
+            post
         };
+
+        //response
         return new NextResponse(JSON.stringify(response), {
             status: 200
         });
     } catch (error) {
-        return new NextResponse("Connect Database Gagal", {
+        //error response
+        return new NextResponse(error, {
             status: 500
         });
     }
 };
 
 export const POST = async (request) => {
+    //what method u want to use formData or req.json
     const formData = await request.formData();
 
+    //try to get data from formData
     const title = formData.get('title');
     const deskripsi = formData.get('deskripsi');
     const tatacara = formData.get('tatacara');
@@ -80,7 +93,7 @@ export const POST = async (request) => {
 
     try {
         // Check if the uploaded image size is less than or equal to 1MB
-        const maxFileSize = 1 * 1024 * 1024; // 1MB in bytes
+        const maxFileSize = 1 * 1024 * 1024;
         if (imageFile.size > maxFileSize) {
             throw new Error("Ukuran gambar melebihi 1MB. Silakan unggah gambar yang lebih kecil.");
         }
@@ -111,12 +124,14 @@ export const POST = async (request) => {
             tatacara,
             videourl,
             kategori: kategoriArray,
+            timestaps: serverTimestamp()
         });
-
+        //response OK
         return new NextResponse(JSON.stringify("Post berhasil disimpan"), {
             status: 201,
         });
     } catch (error) {
+        //response Error
         return new NextResponse(error.message, {
             status: 500,
         });

@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    images: {
+        domains: ['firebasestorage.googleapis.com'],
+    },
     middleware: [
         (req, res, next) => {
             const apiKey = req.headers['x-api-key'];

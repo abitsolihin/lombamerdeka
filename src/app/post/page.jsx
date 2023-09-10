@@ -5,7 +5,7 @@ import { authOption } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import ModalLogin from "@/components/Modal/ModalLogin";
 
-const page = async () => {
+const Post = async () => {
     const session = await getServerSession(authOption)
 
     if (session) {
@@ -21,4 +21,4 @@ const page = async () => {
     }
 };
 
-export default page;
+export default Post;

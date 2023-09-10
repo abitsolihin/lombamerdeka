@@ -4,9 +4,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const page = () => {
-
-    const [err, setErr] = useState(false);
+const Register = () => {
+    const [isErr, setErr] = useState(false);
     const [isLoading, setLoading] = useState(false);
     const router = useRouter();
 
@@ -99,10 +98,10 @@ const page = () => {
                     )}
                 </div>
             </form>
-            {err && "Error something wrong!"}
+            {isErr && "Error something wrong!"}
         </div>
         <Image className="absolute bottom-0 left-0 right-0 w-full -z-20" src={'/flag.svg'} alt="balap karung" width='378' height='378' priority />
     </div>
 };
 
-export default page;
+export default Register;

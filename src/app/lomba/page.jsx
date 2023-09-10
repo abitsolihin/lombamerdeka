@@ -3,7 +3,7 @@ import React from "react";
 import { BiFilter } from 'react-icons/bi'
 import { getPosts } from "@/utils/Fetching";
 
-const page = async () => {
+const Lomba = async () => {
 
     const data = await getPosts()
 
@@ -35,4 +35,4 @@ const page = async () => {
     
 };
 
-export default page;
+export default Lomba;

@@ -5,9 +5,11 @@ import React, { useState } from "react";
 import ButtonSignout from "./ButtonSignout";
 import ButtonSignin from "./ButtonSignin";
 import ButtonRegister from "./ButtonRegister";
+import { usePathname } from "next/navigation";
 
-const HamburgerButton = ({ session }) => {
+const HamburgerButton = ({ session, navLinks }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const router = usePathname()
 
     // Function to toggle the mobile menu
     const toggleMobileMenu = () => {

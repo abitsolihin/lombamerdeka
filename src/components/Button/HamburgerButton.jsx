@@ -16,6 +16,8 @@ const HamburgerButton = ({ session }) => {
 
     const underlineAnimation = "relative after:content-[''] after:bottom-0 after:h-[2px] hover:after:w-full after:w-0 after:absolute after:bg-gray-900 flex flex-col justify-center items-center after:duration-200"
 
+    const underLine = `relative after:content-[''] after:bottom-0 after:h-[2px] after:w-full after:absolute after:bg-gray-900 flex flex-col justify-center items-center`
+
     return <>
         <div className="lg:hidden wrapper flex flex-col w-full">
             <div className="lg:hidden w-full justify-end flex items-center">
@@ -40,9 +42,10 @@ const HamburgerButton = ({ session }) => {
             {isMobileMenuOpen && (
                 <div className="lg:hidden p-2 absolute top-14 right-0 left-0 border-[1px] border-gray-900 rounded flex flex-col items-center sm:flex-row justify-between h-auto w-full gap-2">
                     <ul className="flex flex-row md:items-center justify-center sm:justify-start w-full h-full md:w-auto md:h-auto gap-3 text-gray-900 flex-1">
-                        <li className={`${underlineAnimation}`}><Link href={"/"}>Home</Link></li>
-                        <li className={`${underlineAnimation}`}><Link href={"/"}>Ide Lomba</Link></li>
-                        <li className={`${underlineAnimation}`}><Link href={"/"}>Post Ide Lomba</Link></li>
+                        {navLinks.map((link) => {
+                            const isActive = router === link.href
+                            return <Link className={isActive ? `${underLine}` : `${underlineAnimation}`} href={link.href} key={link.name}>{link.name}</Link>
+                        })}
                     </ul>
                     <div className="button flex items-center justify-start sm:justify-end gap-4 w-auto flex-1">
                         {session ? <ButtonSignout /> : <> <ButtonSignin /> <ButtonRegister /></>}

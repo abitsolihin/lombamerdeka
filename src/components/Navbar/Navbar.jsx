@@ -48,7 +48,7 @@ const Navbar = () => {
                     {status === "authenticated" ? <ButtonSignout /> : <> <ButtonSignin /> <ButtonRegister /></>}
                 </div>
             </div>
-            <HamburgerButton session={session} />
+            <HamburgerButton session={session} navLinks={navLinks}/>
         </header>
     );
 };

@@ -24,11 +24,12 @@ export const GET = async (request) => {
     }
 
     try {
+
         //try to get the params
         const page_str = request.nextUrl.searchParams.get("page");
         const limit_str = request.nextUrl.searchParams.get("limit");
         const kategori = request.nextUrl.searchParams.get("kategori");
-        const sort = request.nextUrl.searchParams.get("sort"); 
+        const sort = request.nextUrl.searchParams.get("sort");
         const field = request.nextUrl.searchParams.get("field");
 
         //pagination filter
@@ -64,7 +65,7 @@ export const GET = async (request) => {
             totalPages,
             currentPage: page,
             limit,
-            post
+            post,
         };
 
         //response
@@ -90,6 +91,7 @@ export const POST = async (request) => {
     const videourl = formData.get('videourl');
     const kategoriArray = formData.getAll('kategori[]');
     const imageFile = formData.get('image');
+    const createdBy = formData.get('createdBy')
 
     try {
         // Check if the uploaded image size is less than or equal to 1MB
@@ -116,6 +118,7 @@ export const POST = async (request) => {
         // Get the download URL of the uploaded image
         const imgurl = await getDownloadURL(imageRef);
 
+
         // Create a new document in the "lombas" collection
         await addDoc(lombasCollection, {
             title,
@@ -124,7 +127,8 @@ export const POST = async (request) => {
             tatacara,
             videourl,
             kategori: kategoriArray,
-            timestaps: serverTimestamp()
+            timestaps: serverTimestamp(),
+            createdBy
         });
         //response OK
         return new NextResponse(JSON.stringify("Post berhasil disimpan"), {

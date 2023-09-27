@@ -2,7 +2,6 @@ import Image from "next/image";
 import FormPost from "@/components/Form/FormPost";
 import { getServerSession } from "next-auth";
 import { authOption } from "../api/auth/[...nextauth]/route";
-import { redirect } from "next/navigation";
 import ModalLogin from "@/components/Modal/ModalLogin";
 
 const Post = async () => {

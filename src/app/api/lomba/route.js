@@ -127,7 +127,7 @@ export const POST = async (request) => {
             tatacara,
             videourl,
             kategori: kategoriArray,
-            timestaps: serverTimestamp(),
+            timestamps: serverTimestamp(),
             createdBy
         });
         //response OK

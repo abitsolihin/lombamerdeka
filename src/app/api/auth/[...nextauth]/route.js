@@ -28,10 +28,10 @@ export const authOption = {
                                 username: user.username,
                             };
                         } else {
-                            throw new Error('Wrong credentials');
+                            throw new Error('Oops! Username atau Password Anda mungkin salah.');
                         }
                     } else {
-                        throw new Error('User Not Found');
+                        throw new Error('Oops! Sepertinya User tidak ditemukan.');
                     }
                 } catch (error) {
                     throw new Error(error.message);
@@ -57,9 +57,6 @@ export const authOption = {
             }
             return token;
         },
-    },
-    pages: {
-        error: '/login',
     },
 }
 

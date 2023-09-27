@@ -8,6 +8,7 @@ import ButtonRegister from "./ButtonRegister";
 import { usePathname } from "next/navigation";
 
 const HamburgerButton = ({ session, navLinks }) => {
+
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const router = usePathname()
 
@@ -50,7 +51,7 @@ const HamburgerButton = ({ session, navLinks }) => {
                         })}
                     </ul>
                     <div className="button flex items-center justify-start sm:justify-end gap-4 w-auto flex-1">
-                        {session ? <ButtonSignout /> : <> <ButtonSignin /> <ButtonRegister /></>}
+                        {session === "authenticated" ? <ButtonSignout /> : <> <ButtonSignin /> <ButtonRegister /></>}
                     </div>
                 </div>
             )}

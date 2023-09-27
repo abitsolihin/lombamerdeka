@@ -1,11 +1,11 @@
 import Card from "@/components/card/Card";
 import React from "react";
 import { BiFilter } from 'react-icons/bi'
-import { getPosts } from "@/utils/Fetching";
+import { getPosts, getPostsByKategori } from "@/utils/Fetching";
+import ButtonFilter from "@/components/Button/ButtonFilter";
 
-const Lomba = async () => {
-
-    const data = await getPosts()
+const Lomba = async ({searchParams}) => {
+    const data = await getPostsByKategori(searchParams)
 
         return (
             <div className="w-full flex flex-col min-h-screen pt-20">
@@ -21,11 +21,7 @@ const Lomba = async () => {
                             <BiFilter size={32} />
                             <span>Filter Lomba</span>
                         </div>
-                        <div className="right flex items-center flex-1 justify-center sm:justify-end gap-4">
-                            <span className="cursor-pointer">Trend TikTok</span>
-                            <span className="cursor-pointer">Dewasa</span>
-                            <span className="cursor-pointer">Anak-Anak</span>
-                        </div>
+                        <ButtonFilter/>
                     </div>
                     <Card data={data.post} />
                 </div>

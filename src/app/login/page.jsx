@@ -1,31 +1,51 @@
 "use client"
 
-import React from "react";
+import React, { useState } from "react";
 import { signIn } from 'next-auth/react'
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { toast, ToastContainer } from 'react-toastify';
 
 const Signin = () => {
+    const [isLoading, setLoading] = useState(false)
 
-    const session = useSession()
     const router = useRouter()
-
-    if (session.status === 'authenticated') {
-        router?.push('/')
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        setLoading(true)
         const email = e.target[0].value
         const password = e.target[1].value
 
-        signIn('credentials', { email, password })
+        signIn("credentials", {
+            redirect: false,
+            email,
+            password
+        })
+            .then(async({ error }) => {
+                setLoading(false)
+                if (error) {
+                    toast.error(error, {
+                        position: 'top-right',
+                        autoClose: 3000,
+                    })
+                }else{
+                    toast.success("Berhasil Masuk", {
+                        position: 'top-right',
+                        autoClose: 2000,
+                    })
+                    await new Promise(resolve => setTimeout(resolve, 2000)); // Menunggu 3 detik
+                    router.push('/');
+                }
+            })
+            .catch((error) => console.log(error));
     }
 
     return <div className="flex items-center justify-center min-h-screen">
+        <ToastContainer />
         <div className="w-full max-w-md">
             <form className="rounded px-8 py-6 border-[1px] border-gray-800" onSubmit={handleSubmit}>
                 <div className="title w-full text-center my-4">
@@ -58,7 +78,7 @@ const Signin = () => {
                         className="bg-gray-800 text-white font-bold py-3 px-4 my-4 rounded-full  focus:outline-none focus:shadow-outline w-full"
                         type="submit"
                     >
-                        Masuk
+                        {isLoading? 'Loading...' : 'Masuk'}
                     </button>
                 </div>
                 <div className="register w-full text-center">

@@ -10,7 +10,7 @@ import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 
 const Navbar = () => {
-    const { session, status } = useSession();
+    const { status } = useSession();
 
     const router = usePathname()
 
@@ -25,12 +25,10 @@ const Navbar = () => {
 
     const underLine = `relative after:content-[''] after:bottom-0 after:h-[2px] after:w-full after:absolute after:bg-gray-900 flex flex-col justify-center items-center`
 
-    const isPostRoute = router === "/post";
 
     return (
         <header
-            className={`absolute top-0 left-0 right-0 py-4 mx-4 md:mx-24 ${isPostRoute ? "hidden" : "flex"
-                }`}
+            className={`absolute top-0 left-0 right-0 py-4 mx-4 md:mx-24 flex `}
         >
             <div className="wrapper-title">
                 <h1 className="title font-normal text-4xl">LombaMerdeka</h1>
@@ -45,10 +43,19 @@ const Navbar = () => {
                     </ul>
                 </nav>
                 <div className="button flex items-center justify-center gap-4 w-auto">
-                    {status === "authenticated" ? <ButtonSignout /> : <> <ButtonSignin /> <ButtonRegister /></>}
+                    {status === "authenticated" ? (
+                        <ButtonSignout />
+                    ) : status === "loading" ? (
+                        <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-r-2 border-gray-900"></div>
+                    ) : (
+                        <>
+                            <ButtonSignin />
+                            <ButtonRegister />
+                        </>
+                    )}
                 </div>
             </div>
-            <HamburgerButton session={session} navLinks={navLinks}/>
+            <HamburgerButton session={status} navLinks={navLinks} />
         </header>
     );
 };

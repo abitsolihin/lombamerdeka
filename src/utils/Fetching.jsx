@@ -2,7 +2,7 @@ import queryString from "query-string";
 
 export async function getPosts() {
     const apiKey = process.env.API_KEY; // Gantilah dengan API key Anda yang sebenarnya
-    const apiUrl = `http://localhost:3000/api/lomba`;
+    const apiUrl = `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/lomba`;
 
     const res = await fetch(apiUrl, {
         method: 'GET',
@@ -23,7 +23,7 @@ export async function getPostsByKategori(searchParams) {
     let queryURL = queryString.stringify(urlParams)
     
     const apiKey = process.env.API_KEY; // Gantilah dengan API key Anda yang sebenarnya
-    const apiUrl = `http://localhost:3000/api/lomba?${queryURL}`;
+    const apiUrl = `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/lomba?${queryURL}`;
 
     const res = await fetch(apiUrl, {
         method: 'GET',
@@ -38,7 +38,7 @@ export async function getPostsByKategori(searchParams) {
 export async function getDetailPost(params) {
     
     const apiKey = process.env.API_KEY; // Gantilah dengan API key Anda yang sebenarnya
-    const apiUrl = `http://localhost:3000/api/lomba/${params}`;
+    const apiUrl = `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/lomba/${params}`;
 
     const res = await fetch(apiUrl, {
         method: 'GET',

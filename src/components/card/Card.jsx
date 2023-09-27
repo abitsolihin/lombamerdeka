@@ -6,7 +6,7 @@ const Card = ({ data }) => {
     return (
         <div className="cards w-full h-full grid lg:grid-cols-5 grid-cols-2 xl:grid-cols-4 gap-4 auto-rows-max py-2">
             {data.map((item) => (
-                <Link className="group" key={item.id} href={`lomba/${item.id}`}>
+                <Link className="group" key={item.id} href={`${process.env.NEXT_PUBLIC_VERCEL_URL}/lomba/${item.id}`}>
                     <div className="relative aspect-square bg-gray-200 rounded-md overflow-hidden">
                         <div className="absolute top-0 left-0 w-full h-full brightness-50 group-hover:scale-110 group-hover:brightness-100 duration-200 ease-in-out">
                             <Image

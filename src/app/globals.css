@@ -34,3 +34,17 @@ h1{
   flex: 1;
   overflow-x: scroll;
 }
+.scrollbar {
+  animation: progress;
+  animation-timeline: scroll();
+  transform-origin: 0%;
+}
+
+@keyframes progress {
+  0%{
+    transform: scaleX(0);
+  }
+  100%{
+    transform: scaleX(1);
+  }
+}

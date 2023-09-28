@@ -4,6 +4,7 @@ import ButtonBack from "@/components/Button/ButtonBack";
 import BlogList from "@/components/BlogList";
 import Image from "next/image";
 import LineDashed from "@/components/Decoration/LineDashed";
+import ScrollBar from "@/components/Decoration/ScrollBar";
 
 const getYouTubeVideoID = (url) => {
     const videoIdMatch = url.match(/(?:\/|v=)([a-zA-Z0-9_-]{11})/);
@@ -23,17 +24,18 @@ const DetailLomba = async ({ params }) => {
     const embedVideoUrl = videourl ? `https://www.youtube.com/embed/${getYouTubeVideoID(videourl)}` : '';
 
     return <div className="w-full lg:max-w-[834px] min-h-screen py-20 flex flex-col">
+        <ScrollBar/>
         <ButtonBack />
-        <h2 className="text-5xl py-3">{title}</h2>
+        <h2 className="text-3xl lg:text-5xl py-3 font-semibold">{title}</h2>
         <div className="flex justify-between items-center">
-            <p>Published On <span className="font-semibold">{formattedDate}</span></p>
+            <p className="text-xs lg:text-base">Published On <span className="font-semibold">{formattedDate}</span></p>
             <BlogList />
         </div>
-        <LineDashed/>
+        <LineDashed />
         <div className="img-wrapper relative w-full h-[300px] group bg-gray-200 rounded-md overflow-hidden my-2">
             <div className="absolute top-0 left-0 w-full h-full group-hover:scale-105 duration-200 ease-in-out">
                 <Image
-                    src={`${imgurl}`} // Replace with the actual image path
+                    src={`${imgurl}`}
                     alt="Image Alt Text"
                     fill
                     objectFit="cover"
@@ -41,16 +43,16 @@ const DetailLomba = async ({ params }) => {
             </div>
         </div>
         <div className="blog my-2">
-            <h2 className="lg:text-2xl">Apa itu Lomba <span className="font-semibold">{title}</span>?</h2>
+            <h2 className="text-2xl">Apa itu Lomba <span className="font-semibold">{title}</span>?</h2>
             <p className="my-5">{deskripsi}</p>
-            <h2 className="lg:text-2xl">Bagaimana Tatacara dari Lomba <span className="font-semibold">{title}</span>?</h2>
+            <h2 className="text-2xl">Bagaimana Tatacara dari Lomba <span className="font-semibold">{title}</span>?</h2>
             <p className="my-5">{tatacara}</p>
             <div className="video-wrapper w-full h-auto">
                 <iframe src={`${embedVideoUrl}`} width="100%" height="360"></iframe>
             </div>
         </div>
-        <div className="kategori-wrapper flex items-center justify-between py-5">
-            <div className="tags-wrapper flex flex-col justify-center gap-2">
+        <div className="kategori-wrapper flex flex-col lg:flex-row items-center justify-between py-5 gap-3">
+            <div className="tags-wrapper flex justify-center gap-2">
                 <span className="font-semibold">Kategori :</span>
                 <ul className="flex gap-2">
                     {kategori.map((item, idx) => (
@@ -65,7 +67,7 @@ const DetailLomba = async ({ params }) => {
                 <p>{createdBy}</p>
             </div>
         </div>
-        <LineDashed/>
+        <LineDashed />
     </div>;
 };
 

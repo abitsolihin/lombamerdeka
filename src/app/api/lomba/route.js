@@ -31,6 +31,7 @@ export const GET = async (request) => {
         const kategori = request.nextUrl.searchParams.get("kategori");
         const sort = request.nextUrl.searchParams.get("sort");
         const field = request.nextUrl.searchParams.get("field");
+        const search = request.nextUrl.searchParams.get("search");
 
         //pagination filter
         const page = page_str ? parseInt(page_str, 10) : 1;
@@ -48,6 +49,12 @@ export const GET = async (request) => {
         //filter based value on category
         if (kategori) {
             filterQuery = query(filterQuery, where('kategori', 'array-contains', kategori));
+        }
+
+        if (search) {
+            filterQuery = query(filterQuery, where('title', '!=', null)); // Pastikan ada judul yang ada
+            filterQuery = query(filterQuery, where('title', '>=', search));
+            filterQuery = query(filterQuery, where('title', '<', search + '\uf8ff'));
         }
 
         //try to get all document based on filterQuery(collection)
@@ -85,7 +92,9 @@ export const POST = async (request) => {
     const formData = await request.formData();
 
     //try to get data from formData
-    const title = formData.get('title');
+    const rawTitle = formData.get('title'); // Ambil title dalam bentuk aslinya
+    const title = rawTitle.toLowerCase(); // Ubah title menjadi lowercase
+
     const deskripsi = formData.get('deskripsi');
     const tatacara = formData.get('tatacara');
     const videourl = formData.get('videourl');
@@ -94,11 +103,6 @@ export const POST = async (request) => {
     const createdBy = formData.get('createdBy')
 
     try {
-        // Check if the uploaded image size is less than or equal to 1MB
-        const maxFileSize = 1 * 1024 * 1024;
-        if (imageFile.size > maxFileSize) {
-            throw new Error("Ukuran gambar melebihi 1MB. Silakan unggah gambar yang lebih kecil.");
-        }
 
         // Access the "lombas" collection in Firestore
         const lombasCollection = collection(db, "lombas");

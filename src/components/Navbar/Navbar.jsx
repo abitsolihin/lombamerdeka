@@ -15,8 +15,7 @@ const Navbar = () => {
     const router = usePathname()
 
     const navLinks = [
-        { name: 'Home', href: '/' },
-        { name: 'Ide Lomba', href: '/lomba' },
+        { name: 'Lomba', href: '/' },
         { name: 'Post Ide Lomba', href: '/post' },
     ]
 

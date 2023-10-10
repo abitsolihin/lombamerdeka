@@ -57,9 +57,9 @@ const Signin = () => {
                     </label>
                     <input
                         className="border-[1px] border-gray-800 bg-transparent rounded-full w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
-                        id="username"
-                        type="username"
-                        placeholder="Username"
+                        id="Email"
+                        type="Email"
+                        placeholder="Email"
                     />
                 </div>
                 <div className="mb-4">

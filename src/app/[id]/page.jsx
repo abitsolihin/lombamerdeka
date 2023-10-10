@@ -15,18 +15,17 @@ const getYouTubeVideoID = (url) => {
 };
 
 const DetailLomba = async ({ params }) => {
-    const { lomba } = await getDetailPost(params.id)
-    const { title, timestamps, imgurl, deskripsi, createdBy, kategori, tatacara, videourl } = lomba
+    const {lomba} = await getDetailPost(params.id)
+    const {title, deskripsi, tatacara, timestamps, createdBy, imgurl, videourl, kategori} = lomba
 
     const date = new Date(timestamps.seconds * 1000 + timestamps.nanoseconds / 1000000);
     const formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
 
     const embedVideoUrl = videourl ? `https://www.youtube.com/embed/${getYouTubeVideoID(videourl)}` : '';
-
     return <div className="w-full lg:max-w-[834px] min-h-screen py-20 flex flex-col">
         <ScrollBar/>
         <ButtonBack />
-        <h2 className="text-3xl lg:text-5xl py-3 font-semibold">{title}</h2>
+        <h2 className="text-3xl lg:text-5xl py-3 font-semibold" style={{ textTransform: 'capitalize' }}>{title}</h2>
         <div className="flex justify-between items-center">
             <p className="text-xs lg:text-base">Published On <span className="font-semibold">{formattedDate}</span></p>
             <BlogList />

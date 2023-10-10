@@ -40,6 +40,14 @@ h1{
   transform-origin: 0%;
 }
 
+.radial-gradient{
+  width: 500px;
+  height: 500px;
+  position: fixed;
+  background: rgb(221,221,221);
+  background: radial-gradient(circle, rgba(221,221,221,1) 0%, rgba(245,245,245,1) 75%);
+}
+
 @keyframes progress {
   0%{
     transform: scaleX(0);

@@ -61,7 +61,7 @@ const FormPost = () => {
                     autoClose: 3000, // Auto close the toast after 3 seconds (adjust as needed)
                 });
 
-                router.push('/lomba');
+                router.push('/');
             } else {
                 console.error('Gagal mengirim data');
                 setIsLoading(false);

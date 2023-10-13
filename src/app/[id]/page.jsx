@@ -16,7 +16,9 @@ const getYouTubeVideoID = (url) => {
 
 const DetailLomba = async ({ params }) => {
     const {lomba} = await getDetailPost(params.id)
-    const {title, deskripsi, tatacara, timestamps, createdBy, imgurl, videourl, kategori} = lomba
+
+    console.log(lomba)
+    const {title, deskripsi, tatacara, timestamps, createdBy, imgurl, videourl, kategori, views} = lomba
 
     const date = new Date(timestamps.seconds * 1000 + timestamps.nanoseconds / 1000000);
     const formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
@@ -28,7 +30,7 @@ const DetailLomba = async ({ params }) => {
         <h2 className="text-3xl lg:text-5xl py-3 font-semibold" style={{ textTransform: 'capitalize' }}>{title}</h2>
         <div className="flex justify-between items-center">
             <p className="text-xs lg:text-base">Published On <span className="font-semibold">{formattedDate}</span></p>
-            <BlogList />
+            <BlogList views = {views} />
         </div>
         <LineDashed />
         <div className="img-wrapper relative w-full h-[300px] group bg-gray-200 rounded-md overflow-hidden my-2">
@@ -62,7 +64,7 @@ const DetailLomba = async ({ params }) => {
                 </ul>
             </div>
             <div className="createdBy flex items-center gap-2">
-                <span className="font-semibold">Dibuat Oleh :</span>
+                <span className="font-semibold">Diposting Oleh :</span>
                 <p>{createdBy}</p>
             </div>
         </div>

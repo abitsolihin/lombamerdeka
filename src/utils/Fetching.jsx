@@ -42,7 +42,7 @@ export async function getDetailPost(params) {
 
   const res = await fetch(apiUrl, {
     method: "GET",
-    cache: "no-store",
+    next: {revalidate},
     headers: {
       "x-api-key": apiKey, // Tambahkan header x-api-key dengan nilai API key Anda
     },

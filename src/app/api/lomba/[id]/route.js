@@ -39,7 +39,7 @@ export const GET = async (request, { params }) => {
     }
 };
 
-export const PUT = async ({ params }) => {
+export const PUT = async (request, { params }) => {
     try {
         // Extract the ID from the route parameters
         const { id } = params;
@@ -60,6 +60,7 @@ export const PUT = async ({ params }) => {
         // Get the lomba data from the snapshot
         const lombaData = docSnapshot.data();
 
+
         // Calculate total views (views)
         const totalViews = lombaData.views + 1; // Increment views
 
@@ -69,7 +70,7 @@ export const PUT = async ({ params }) => {
         // Return a success response
         const response = {
             status: "success",
-            lomba: lombaData,
+            views: totalViews
         };
         return new NextResponse(JSON.stringify(response), {
             status: 200

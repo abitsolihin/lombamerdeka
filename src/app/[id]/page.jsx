@@ -17,7 +17,6 @@ const getYouTubeVideoID = (url) => {
 const DetailLomba = async ({ params }) => {
     const {lomba} = await getDetailPost(params.id)
 
-    console.log(lomba)
     const {title, deskripsi, tatacara, timestamps, createdBy, imgurl, videourl, kategori, views} = lomba
 
     const date = new Date(timestamps.seconds * 1000 + timestamps.nanoseconds / 1000000);

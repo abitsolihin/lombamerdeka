@@ -8,8 +8,6 @@ const Search = () => {
   const [searchValue, setSearchValue] = useState("");
   const { query, pushQuery } = useCustomRouter();
 
-  console.log(searchValue)
-
   // Fungsi untuk memfilter data berdasarkan input pengguna
   const handleSearch = (search) => {
     pushQuery({ ...query, search });

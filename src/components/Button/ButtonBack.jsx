@@ -1,5 +1,3 @@
-'use client'
-
 import React from "react";
 import { GrFormPrevious } from "react-icons/gr"
 import Link from "next/link";

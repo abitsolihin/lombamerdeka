@@ -1,11 +1,11 @@
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { NextResponse } from "next/server";
 import { db } from "@/app/firebase";
 
 export const GET = async (request, { params }) => {
     try {
         // Extract the ID from the route parameters
-        const { id } = params; // Assuming the ID is passed as a route parameter
+        const { id } = params;
 
         // Create a Firestore document reference using the extracted ID
         const docRef = doc(db, "lombas", id);
@@ -23,10 +23,16 @@ export const GET = async (request, { params }) => {
         // Get the lomba data from the snapshot
         const lombaData = docSnapshot.data();
 
-        // Create a success response with the lomba data
+        // Calculate total views (views)
+        const totalViews = lombaData.views + 1; // For example, we increment by 1 each time the lomba is accessed
+
+        // Update views in Firestore (optional, if you want to persist the total views)
+        await updateDoc(docRef, { views: totalViews });
+
+        // Create a success response with the lomba data and total views
         const response = {
             status: "success",
-            lomba: lombaData
+            lomba: lombaData,
         };
         return new NextResponse(JSON.stringify(response), {
             status: 200
@@ -37,4 +43,4 @@ export const GET = async (request, { params }) => {
             status: 500
         });
     }
-}
+};

@@ -101,6 +101,7 @@ export const POST = async (request) => {
     const kategoriArray = formData.getAll('kategori[]');
     const imageFile = formData.get('image');
     const createdBy = formData.get('createdBy')
+    const views = 0
 
     try {
 
@@ -132,7 +133,8 @@ export const POST = async (request) => {
             videourl,
             kategori: kategoriArray,
             timestamps: serverTimestamp(),
-            createdBy
+            createdBy,
+            views
         });
         //response OK
         return new NextResponse(JSON.stringify("Post berhasil disimpan"), {

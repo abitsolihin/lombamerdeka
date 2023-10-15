@@ -15,7 +15,6 @@ export const authOption = {
 
                 try {
                     const user = await Users.findOne({ username: credentials.username });
-
                     if (user) {
                         const isPasswordCorrect = await bcrypt.compare(
                             credentials.password,

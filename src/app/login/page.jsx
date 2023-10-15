@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -66,8 +65,8 @@ const Signin = () => {
             </label>
             <input
               className="border-[1px] border-gray-800 bg-transparent rounded-full w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
-              id="Username"
-              type="Username"
+              id="username"
+              type="text"
               placeholder="Username"
             />
           </div>

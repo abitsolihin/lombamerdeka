@@ -15,7 +15,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const username = e.target[0].value.trim();
-    const password = e.target[2].value;
+    const password = e.target[1].value;
 
     try {
       setLoading(true);

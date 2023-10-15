@@ -7,6 +7,23 @@ import Image from "next/image"
 import Search from "@/components/Search/Search"
 import RadialGradient from "@/components/Decoration/RadialGradient"
 
+export const metadata = {
+  title: 'Lomba Merdeka - Cari Inspirasi Lomba Untuk 17 Agustus',
+  description: `Temukan Inspirasi Lomba Spesial 17 Agustus! Dapatkan ide-ide segar dan kreatif untuk merayakan kemerdekaan Indonesia di Lomba Merdeka. Temukan lomba-lomba unik dan menarik, serta cara terbaik untuk mengisi hari spesial 17 Agustus di Lomba Merdeka. Bergabunglah sekarang dan buat momen luar biasa dalam perayaan kemerdekaan negara kita!`,
+  icons: {
+    icon: [
+      '/favicon.ico',
+    ],
+    apple: [
+      '/apple-touch-icon.png'
+    ],
+    shortcut: [
+      '/apple-touch-icon.png'
+    ]
+  },
+  manifest: '/site.webmanifest'
+}
+
 
 export default async function Home({ searchParams }) {
   const {post} = await getPostsByKategori(searchParams)

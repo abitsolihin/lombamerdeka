@@ -28,7 +28,7 @@ const Card = ({ data }) => {
       ) : (
         <div className="cards w-full h-full grid lg:grid-cols-5 grid-cols-2 xl:grid-cols-5 gap-4 auto-rows-max py-2">
           {data.map((item) => (
-            <Link href={item.id} key={item.id}>
+            <Link href={`/lomba/${item.id}`} key={item.id}>
               <div
                 onClick={() => handleCardClick(item)}
                 className="group relative aspect-square bg-gray-200 rounded-md overflow-hidden"

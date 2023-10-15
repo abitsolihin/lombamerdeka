@@ -43,7 +43,7 @@ const HamburgerButton = ({ session, navLinks }) => {
                 </button>
             </div>
             {isMobileMenuOpen && (
-                <div className="lg:hidden p-2 absolute top-14 right-0 left-0 border-[1px] border-gray-900 rounded flex flex-col items-center sm:flex-row justify-between h-auto w-full gap-2">
+                <div className="lg:hidden p-2 absolute top-14 right-0 left-0 border-[1px] border-gray-900 rounded flex flex-col items-center sm:flex-row justify-between h-auto w-full gap-2 bg-primary">
                     <ul className="flex flex-row md:items-center justify-center sm:justify-start w-full h-full md:w-auto md:h-auto gap-3 text-gray-900 flex-1">
                         {navLinks.map((link) => {
                             const isActive = router === link.href

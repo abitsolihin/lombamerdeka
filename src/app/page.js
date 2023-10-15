@@ -15,7 +15,7 @@ export default async function Home({ searchParams }) {
     <div className=" w-full flex flex-col min-h-screen pt-12">
       <RadialGradient position={`-top-48 -left-48 -z-10`} />
       <RadialGradient position={`bottom-20 -right-48 -z-10`} />
-      <div className="relative w-full min-h-[200px] lg:min-h-[300px] bg-gray-200 rounded-md outline outline-1 my-10">
+      <div className="relative w-full min-h-[200px] lg:min-h-[300px] bg-gray-200 rounded-md outline outline-1 my-10 -z-10">
         <div className="absolute top-0 left-0 w-full h-full duration-200 ease-in-out">
           <Image
             src={`/pattern.svg`} // Replace with the actual image path

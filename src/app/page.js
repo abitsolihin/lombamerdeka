@@ -1,41 +1,34 @@
-import React from "react"
-import { getPostsByKategori } from "@/utils/Fetching"
-import { BiFilter } from "react-icons/bi"
-import ButtonFilter from "@/components/Button/ButtonFilter"
-import Card from "@/components/card/Card"
-import Image from "next/image"
-import Search from "@/components/Search/Search"
-import RadialGradient from "@/components/Decoration/RadialGradient"
+import React from "react";
+import { getPostsByKategori } from "@/utils/Fetching";
+import { BiFilter } from "react-icons/bi";
+import ButtonFilter from "@/components/Button/ButtonFilter";
+import Card from "@/components/card/Card";
+import Image from "next/image";
+import Search from "@/components/Search/Search";
+import RadialGradient from "@/components/Decoration/RadialGradient";
 
 export const metadata = {
-  title: 'Lomba Merdeka - Cari Inspirasi Lomba Untuk 17 Agustus',
+  title: "Lomba Merdeka - Cari Inspirasi Lomba Untuk 17 Agustus",
   description: `Temukan Inspirasi Lomba Spesial 17 Agustus! Dapatkan ide-ide segar dan kreatif untuk merayakan kemerdekaan Indonesia di Lomba Merdeka. Temukan lomba-lomba unik dan menarik, serta cara terbaik untuk mengisi hari spesial 17 Agustus di Lomba Merdeka. Bergabunglah sekarang dan buat momen luar biasa dalam perayaan kemerdekaan negara kita!`,
   icons: {
-    icon: [
-      '/favicon.ico',
-    ],
-    apple: [
-      '/apple-touch-icon.png'
-    ],
-    shortcut: [
-      '/apple-touch-icon.png'
-    ]
+    icon: ["/favicon.ico"],
+    apple: ["/apple-touch-icon.png"],
+    shortcut: ["/apple-touch-icon.png"],
   },
-  manifest: '/site.webmanifest'
-}
-
+  manifest: "/site.webmanifest",
+};
 
 export default async function Home({ searchParams }) {
-  const {post} = await getPostsByKategori(searchParams)
+  const { post } = await getPostsByKategori(searchParams);
 
   return (
     <div className=" w-full flex flex-col min-h-screen pt-12">
       <RadialGradient position={`-top-48 -left-48 -z-10`} />
       <RadialGradient position={`bottom-20 -right-48 -z-10`} />
-      <div className="relative w-full min-h-[200px] lg:min-h-[300px] bg-gray-200 rounded-md outline outline-1 my-10 -z-10">
+      <div className="relative w-full min-h-[200px] lg:min-h-[300px] bg-gray-200 rounded-md outline outline-1 my-10">
         <div className="absolute top-0 left-0 w-full h-full duration-200 ease-in-out">
           <Image
-            src={`/pattern.svg`} // Replace with the actual image path
+            src={`/pattern.svg`}
             alt="Image Alt Text"
             fill
             objectFit="cover"
@@ -44,7 +37,9 @@ export default async function Home({ searchParams }) {
         </div>
         <div className="absolute inset-0 flex items-center justify-center ">
           <div className="text-center max-w-[1000px] px-4">
-            <h2 className="text-slate-900 text-3xl lg:text-7xl font-semibold">Cari Inspirasi Lomba Untuk Acara 17 Agustus</h2>
+            <h2 className="text-slate-900 text-3xl lg:text-7xl font-semibold">
+              Cari Inspirasi Lomba Untuk Acara 17 Agustus
+            </h2>
           </div>
         </div>
         <Search data={post} />
@@ -59,6 +54,6 @@ export default async function Home({ searchParams }) {
         </div>
         <Card data={post} />
       </div>
-    </div >
-  )
+    </div>
+  );
 }

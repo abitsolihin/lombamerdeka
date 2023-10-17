@@ -8,7 +8,7 @@ const Post = async () => {
     const session = await getServerSession(authOption)
 
     if (session) {
-        return <div className="flex items-center justify-center min-h-screen">
+        return <div className="flex justify-center w-full min-h-screen">
             <FormPost />
             <Image className="absolute bottom-0 left-0 right-0 w-full -z-20" src={'/flag.svg'} alt="balap karung" width='378' height='378' priority />
         </div>

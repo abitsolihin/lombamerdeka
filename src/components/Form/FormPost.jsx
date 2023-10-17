@@ -117,7 +117,7 @@ const FormPost = () => {
             <ToastContainer />
             <form
                 onSubmit={handleSubmit}
-                className='border-2 border-solid border-gray-900 p-4 rounded bg-primary w-full sm:w-[700px] scale-75'
+                className='border-2 border-solid border-gray-900 p-4 rounded bg-primary w-[700px] sm:w-[700px] scale-75'
             >
                 <h1 className='text-[32px] sm:text-[48px]'>Buat Postingan</h1>
                 <div className="mb-4">

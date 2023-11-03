@@ -5,6 +5,8 @@ import BlogList from "@/components/BlogList";
 import Image from "next/image";
 import LineDashed from "@/components/Decoration/LineDashed";
 import ScrollBar from "@/components/Decoration/ScrollBar";
+import Script from "next/script";
+import Ads from "@/components/Ads/Ads";
 
 const getYouTubeVideoID = (url) => {
   const videoIdMatch = url.match(/(?:\/|v=)([a-zA-Z0-9_-]{11})/);
@@ -78,16 +80,21 @@ const DetailLomba = async ({ params }) => {
           />
         </div>
       </div>
-      <div className="blog my-2">
-        <h2 className="text-2xl">
-          Apa itu Lomba <span className="font-semibold">{title}</span>?
-        </h2>
-        <p className="my-5">{deskripsi}</p>
-        <h2 className="text-2xl">
-          Bagaimana Tatacara dari Lomba{" "}
-          <span className="font-semibold">{title}</span>?
-        </h2>
-        <p className="my-5">{tatacara}</p>
+      <div className="blog my-2 flex flex-col">
+        <div className="what-is">
+          <h2 className="text-2xl">
+            Apa itu Lomba <span className="font-semibold">{title}</span>?
+          </h2>
+          <p className="my-5">{deskripsi}</p>
+        </div>
+        <Ads />
+        <div className="how-to">
+          <h2 className="text-2xl">
+            Bagaimana Tatacara dari Lomba
+            <span className="font-semibold">{title}</span>?
+          </h2>
+          <p className="my-5">{tatacara}</p>
+        </div>
         <div className="video-wrapper w-full h-auto">
           <iframe src={`${embedVideoUrl}`} width="100%" height="360"></iframe>
         </div>
